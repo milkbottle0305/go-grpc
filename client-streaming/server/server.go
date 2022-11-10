@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	pb "grpc/client-streaming/proto"
 	"io"
@@ -15,24 +14,21 @@ type server struct {
 	pb.UnimplementedBidrectionalServer
 }
 
-func (*server) GetServerResponse(stream pb.Bidrectional_GetServerResponseServer) (*pb.Number, error) {
+func (*server) GetServerResponse(stream pb.Bidrectional_GetServerResponseServer) error {
 	fmt.Println("Server processing gRPC client-streaming.")
 	var count int32 = 0
 	for {
-		req, err := stream.Recv()
+		_, err := stream.Recv()
 		if err == io.EOF {
-			return nil, nil
+			return stream.SendAndClose(&pb.Number{
+				Value: count,
+			})
 		}
 		if err != nil {
 			log.Fatalln("Recv", err)
 		}
 		count += 1
 	}
-	res, err := c.MyFunction(context.Background(), req)
-	if err != nil {
-		log.Fatalln("Error while Calling MyFunction RPC : ", err)
-	}
-	return res, nil
 }
 
 func main() {
