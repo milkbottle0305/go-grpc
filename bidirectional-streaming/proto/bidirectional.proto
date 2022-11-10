@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "/proto";
+
+service Bidrectional {
+    rpc GetServerResponse(stream Message) returns (stream Message) {}
+}
+
+message Message {
+    string message = 1;
+}
