@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	pb "grpc/client-streaming/proto"
-	"io"
 	"log"
 
 	"google.golang.org/grpc"
@@ -26,6 +25,7 @@ func main() {
 
 	c := pb.NewBidrectionalClient(conn)
 	stream, err := c.GetServerResponse(context.Background())
+
 	if err != nil {
 		log.Fatalf("Opening stream", err)
 	}
@@ -42,17 +42,9 @@ func main() {
 		}
 		fmt.Println("[client to server]", message.GetMessage())
 	}
-	if err := stream.CloseSend(); err != nil {
-		log.Fatalln("CloseSend", err)
+	if err != nil {
+		log.Fatalln("Error while Calling GetServerResponse RPC : ", err)
 	}
-	for {
-		res, err := stream.Recv()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			log.Fatalln("Recv", err)
-		}
-		fmt.Println("[server to client]", res.GetMessage())
-	}
+	res, err := stream.CloseAndRecv()
+	fmt.Println("[server to client]", res.GetValue())
 }
