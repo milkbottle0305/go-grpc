@@ -23,7 +23,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	c := pb.NewBidrectionalClient(conn)
+	c := pb.NewClientStreamingClient(conn)
 	stream, err := c.GetServerResponse(context.Background())
 
 	if err != nil {

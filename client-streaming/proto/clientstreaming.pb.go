@@ -127,12 +127,12 @@ var file_clientstreaming_proto_rawDesc = []byte{
 	0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73,
 	0x61, 0x67, 0x65, 0x22, 0x1e, 0x0a, 0x06, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x12, 0x14, 0x0a,
 	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x76, 0x61,
-	0x6c, 0x75, 0x65, 0x32, 0x46, 0x0a, 0x0c, 0x42, 0x69, 0x64, 0x72, 0x65, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x61, 0x6c, 0x12, 0x36, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x1a, 0x0d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x00, 0x28, 0x01, 0x42, 0x08, 0x5a, 0x06, 0x2f,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6c, 0x75, 0x65, 0x32, 0x49, 0x0a, 0x0f, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53, 0x74, 0x72,
+	0x65, 0x61, 0x6d, 0x69, 0x6e, 0x67, 0x12, 0x36, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x53, 0x65, 0x72,
+	0x76, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x1a, 0x0d, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x22, 0x00, 0x28, 0x01, 0x42, 0x08,
+	0x5a, 0x06, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -153,8 +153,8 @@ var file_clientstreaming_proto_goTypes = []interface{}{
 	(*Number)(nil),  // 1: proto.Number
 }
 var file_clientstreaming_proto_depIdxs = []int32{
-	0, // 0: proto.Bidrectional.GetServerResponse:input_type -> proto.Message
-	1, // 1: proto.Bidrectional.GetServerResponse:output_type -> proto.Number
+	0, // 0: proto.ClientStreaming.GetServerResponse:input_type -> proto.Message
+	1, // 1: proto.ClientStreaming.GetServerResponse:output_type -> proto.Number
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -221,45 +221,45 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// BidrectionalClient is the client API for Bidrectional service.
+// ClientStreamingClient is the client API for ClientStreaming service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type BidrectionalClient interface {
-	GetServerResponse(ctx context.Context, opts ...grpc.CallOption) (Bidrectional_GetServerResponseClient, error)
+type ClientStreamingClient interface {
+	GetServerResponse(ctx context.Context, opts ...grpc.CallOption) (ClientStreaming_GetServerResponseClient, error)
 }
 
-type bidrectionalClient struct {
+type clientStreamingClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewBidrectionalClient(cc grpc.ClientConnInterface) BidrectionalClient {
-	return &bidrectionalClient{cc}
+func NewClientStreamingClient(cc grpc.ClientConnInterface) ClientStreamingClient {
+	return &clientStreamingClient{cc}
 }
 
-func (c *bidrectionalClient) GetServerResponse(ctx context.Context, opts ...grpc.CallOption) (Bidrectional_GetServerResponseClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Bidrectional_serviceDesc.Streams[0], "/proto.Bidrectional/GetServerResponse", opts...)
+func (c *clientStreamingClient) GetServerResponse(ctx context.Context, opts ...grpc.CallOption) (ClientStreaming_GetServerResponseClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_ClientStreaming_serviceDesc.Streams[0], "/proto.ClientStreaming/GetServerResponse", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &bidrectionalGetServerResponseClient{stream}
+	x := &clientStreamingGetServerResponseClient{stream}
 	return x, nil
 }
 
-type Bidrectional_GetServerResponseClient interface {
+type ClientStreaming_GetServerResponseClient interface {
 	Send(*Message) error
 	CloseAndRecv() (*Number, error)
 	grpc.ClientStream
 }
 
-type bidrectionalGetServerResponseClient struct {
+type clientStreamingGetServerResponseClient struct {
 	grpc.ClientStream
 }
 
-func (x *bidrectionalGetServerResponseClient) Send(m *Message) error {
+func (x *clientStreamingGetServerResponseClient) Send(m *Message) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *bidrectionalGetServerResponseClient) CloseAndRecv() (*Number, error) {
+func (x *clientStreamingGetServerResponseClient) CloseAndRecv() (*Number, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
@@ -270,42 +270,42 @@ func (x *bidrectionalGetServerResponseClient) CloseAndRecv() (*Number, error) {
 	return m, nil
 }
 
-// BidrectionalServer is the server API for Bidrectional service.
-type BidrectionalServer interface {
-	GetServerResponse(Bidrectional_GetServerResponseServer) error
+// ClientStreamingServer is the server API for ClientStreaming service.
+type ClientStreamingServer interface {
+	GetServerResponse(ClientStreaming_GetServerResponseServer) error
 }
 
-// UnimplementedBidrectionalServer can be embedded to have forward compatible implementations.
-type UnimplementedBidrectionalServer struct {
+// UnimplementedClientStreamingServer can be embedded to have forward compatible implementations.
+type UnimplementedClientStreamingServer struct {
 }
 
-func (*UnimplementedBidrectionalServer) GetServerResponse(Bidrectional_GetServerResponseServer) error {
+func (*UnimplementedClientStreamingServer) GetServerResponse(ClientStreaming_GetServerResponseServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetServerResponse not implemented")
 }
 
-func RegisterBidrectionalServer(s *grpc.Server, srv BidrectionalServer) {
-	s.RegisterService(&_Bidrectional_serviceDesc, srv)
+func RegisterClientStreamingServer(s *grpc.Server, srv ClientStreamingServer) {
+	s.RegisterService(&_ClientStreaming_serviceDesc, srv)
 }
 
-func _Bidrectional_GetServerResponse_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(BidrectionalServer).GetServerResponse(&bidrectionalGetServerResponseServer{stream})
+func _ClientStreaming_GetServerResponse_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(ClientStreamingServer).GetServerResponse(&clientStreamingGetServerResponseServer{stream})
 }
 
-type Bidrectional_GetServerResponseServer interface {
+type ClientStreaming_GetServerResponseServer interface {
 	SendAndClose(*Number) error
 	Recv() (*Message, error)
 	grpc.ServerStream
 }
 
-type bidrectionalGetServerResponseServer struct {
+type clientStreamingGetServerResponseServer struct {
 	grpc.ServerStream
 }
 
-func (x *bidrectionalGetServerResponseServer) SendAndClose(m *Number) error {
+func (x *clientStreamingGetServerResponseServer) SendAndClose(m *Number) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *bidrectionalGetServerResponseServer) Recv() (*Message, error) {
+func (x *clientStreamingGetServerResponseServer) Recv() (*Message, error) {
 	m := new(Message)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -313,14 +313,14 @@ func (x *bidrectionalGetServerResponseServer) Recv() (*Message, error) {
 	return m, nil
 }
 
-var _Bidrectional_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "proto.Bidrectional",
-	HandlerType: (*BidrectionalServer)(nil),
+var _ClientStreaming_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "proto.ClientStreaming",
+	HandlerType: (*ClientStreamingServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "GetServerResponse",
-			Handler:       _Bidrectional_GetServerResponse_Handler,
+			Handler:       _ClientStreaming_GetServerResponse_Handler,
 			ClientStreams: true,
 		},
 	},

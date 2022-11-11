@@ -11,10 +11,10 @@ import (
 )
 
 type server struct {
-	pb.UnimplementedBidrectionalServer
+	pb.UnimplementedClientStreamingServer
 }
 
-func (*server) GetServerResponse(stream pb.Bidrectional_GetServerResponseServer) error {
+func (*server) GetServerResponse(stream pb.ClientStreaming_GetServerResponseServer) error {
 	fmt.Println("Server processing gRPC client-streaming.")
 	var count int32 = 0
 	for {
@@ -42,7 +42,7 @@ func main() {
 
 	// 2. grpc server open
 	s := grpc.NewServer()
-	pb.RegisterBidrectionalServer(s, &server{})
+	pb.RegisterClientStreamingServer(s, &server{})
 
 	// port와 grpc server 연결 후 serving
 	if err := s.Serve(lis); err != nil {
