@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	pb "grpc/server-streaming/proto"
 	"log"
@@ -18,12 +17,16 @@ func make_message(message string) pb.Message {
 
 type server struct{}
 
-func (*server) GetServerResponse(ctx context.Context, req *pb.Number) error {
+func (*server) GetServerResponse(req *pb.Number, stream pb.ServerStreaming_GetServerResponseServer) error {
 	var message []pb.Message
 	for i := 0; i < int(req.Value); i++ {
 		message = append(message, make_message("message #"+string(i+1)))
 	}
 	fmt.Println("Server processing gRPC server-streaming. {%d}", req.Value)
+	for i := 0; i < int(req.Value); i++ {
+		stream.Send(&message[i])
+	}
+	return nil
 }
 
 func main() {
