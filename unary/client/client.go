@@ -10,6 +10,17 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+func doUnary(c pb.MyServiceClient) int32 {
+	req := &pb.MyNumber{
+		Value: 4,
+	}
+	res, err := c.MyFunction(context.Background(), req)
+	if err != nil {
+		log.Fatalln("Error while Calling MyFunction RPC : ", err)
+	}
+	return res.GetValue()
+}
+
 func main() {
 	// 기본적으로는 ssl init을 지원하지만, ssl 작업 없이 시작하기 위해 insecure 옵션 사용
 	// 1. create the connection
@@ -27,15 +38,4 @@ func main() {
 
 	fmt.Println("gRPC result:", doUnary(c))
 
-}
-
-func doUnary(c pb.MyServiceClient) int32 {
-	req := &pb.MyNumber{
-		Value: 4,
-	}
-	res, err := c.MyFunction(context.Background(), req)
-	if err != nil {
-		log.Fatalln("Error while Calling MyFunction RPC : ", err)
-	}
-	return res.GetValue()
 }
