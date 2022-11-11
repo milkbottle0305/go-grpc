@@ -23,7 +23,7 @@ func (*server) GetServerResponse(req *pb.Number, stream pb.ServerStreaming_GetSe
 	for i := 0; i < int(req.Value); i++ {
 		message = append(message, make_message("message #"+strconv.Itoa(i+1)))
 	}
-	fmt.Println("Server processing gRPC server-streaming" + strconv.Itoa(int(req.Value)) + ".")
+	fmt.Println("Server processing gRPC server-streaming " + strconv.Itoa(int(req.Value)) + ".")
 	for i := 0; i < int(req.Value); i++ {
 		stream.Send(&message[i])
 	}
