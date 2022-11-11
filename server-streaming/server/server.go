@@ -5,6 +5,7 @@ import (
 	pb "grpc/server-streaming/proto"
 	"log"
 	"net"
+	"strconv"
 
 	"google.golang.org/grpc"
 )
@@ -20,9 +21,9 @@ type server struct{}
 func (*server) GetServerResponse(req *pb.Number, stream pb.ServerStreaming_GetServerResponseServer) error {
 	var message []pb.Message
 	for i := 0; i < int(req.Value); i++ {
-		message = append(message, make_message("message #"+string(i+1)))
+		message = append(message, make_message("message #"+strconv.Itoa(i+1)))
 	}
-	fmt.Println("Server processing gRPC server-streaming. {%d}", req.Value)
+	fmt.Println("Server processing gRPC server-streaming" + strconv.Itoa(int(req.Value)) + ".")
 	for i := 0; i < int(req.Value); i++ {
 		stream.Send(&message[i])
 	}
