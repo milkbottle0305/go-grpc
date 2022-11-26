@@ -16,18 +16,18 @@ type server struct {
 
 func (*server) GetServerResponse(stream pb.ClientStreaming_GetServerResponseServer) error {
 	fmt.Println("Server processing gRPC client-streaming.")
-	var count int32 = 0
-	for {
-		_, err := stream.Recv()
-		if err == io.EOF {
-			return stream.SendAndClose(&pb.Number{
+	var count int32 = 0 // 몇번의 요청을 받았는지 저장하는 변수 정의
+	for {               // 요청이 stream 방식이므로 반복
+		_, err := stream.Recv() // 요청 stream을 수신
+		if err == io.EOF {      // stream을 끝까지 받았다면
+			return stream.SendAndClose(&pb.Number{ // 요청 횟수를 나타내는 count를 반환 후 수신 stream을 닫음
 				Value: count,
 			})
 		}
-		if err != nil {
+		if err != nil { // 수신 하다가 에러 발생시 핸들링
 			log.Fatalln("Recv", err)
 		}
-		count += 1
+		count += 1 // 요청 횟수를 1 증가
 	}
 }
 

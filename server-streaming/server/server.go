@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func make_message(message string) pb.Message {
+func make_message(message string) pb.Message { // 메시지를 생성
 	return pb.Message{
 		Message: message,
 	}
@@ -19,12 +19,12 @@ func make_message(message string) pb.Message {
 type server struct{}
 
 func (*server) GetServerResponse(req *pb.Number, stream pb.ServerStreaming_GetServerResponseServer) error {
-	var message []pb.Message
-	for i := 0; i < int(req.Value); i++ {
+	var message []pb.Message              // 메시지 변수 선언
+	for i := 0; i < int(req.Value); i++ { // 메시지를 요청에 해당하는 횟수만큼 생성
 		message = append(message, make_message("message #"+strconv.Itoa(i+1)))
 	}
 	fmt.Println("Server processing gRPC server-streaming " + strconv.Itoa(int(req.Value)) + ".")
-	for i := 0; i < int(req.Value); i++ {
+	for i := 0; i < int(req.Value); i++ { // 해당 횟수만큼 송신 stream을 만들어 모두 전송
 		stream.Send(&message[i])
 	}
 	return nil

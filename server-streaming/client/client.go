@@ -12,22 +12,22 @@ import (
 )
 
 func recv_message(c pb.ServerStreamingClient) {
-	req := &pb.Number{
+	req := &pb.Number{ // 몇 번의 송신을 받는지 요청을 나타내는 req 생성
 		Value: 5,
 	}
-	stream, err := c.GetServerResponse(context.Background(), req)
+	stream, err := c.GetServerResponse(context.Background(), req) // 서버에게 요청
 	if err != nil {
 		log.Fatalln("Error while Calling GetServerReseponse", err)
 	}
-	for {
-		res, err := stream.Recv()
-		if err == io.EOF {
+	for { // server streaming이므로 서버에게 받을 stream만큼 반복
+		res, err := stream.Recv() // 서버에게서 stream을 수신
+		if err == io.EOF {        // 끝까지 받으면 종료
 			break
 		}
-		if err != nil {
+		if err != nil { // 받는 도중 에러 발생시 핸들링
 			log.Fatalln("Error while reciving stream", err)
 		}
-		fmt.Println("[server to client]", res.GetMessage())
+		fmt.Println("[server to client]", res.GetMessage()) // 응답인 메시지를 받으며 콘솔 출력
 	}
 }
 
