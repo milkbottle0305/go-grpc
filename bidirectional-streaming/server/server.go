@@ -16,18 +16,18 @@ type server struct {
 
 func (*server) GetServerResponse(stream pb.Bidrectional_GetServerResponseServer) error {
 	fmt.Println("Server processing gRPC bidirectional streaming.")
-	for {
-		req, err := stream.Recv()
-		if err == io.EOF {
+	for { //클라이언트의 요청도 stream이고, 응답도 stream이므로 반복
+		req, err := stream.Recv() // req에 stream을 수신
+		if err == io.EOF {        // stream의 끝을 나타내는 EOF에 간다면 종료
 			return nil
 		}
-		if err != nil {
+		if err != nil { // 수신하는 과정에서 에러가 발생할 때
 			log.Fatalln("Recv", err)
 		}
-		res := stream.Send(&pb.Message{
+		res := stream.Send(&pb.Message{ // res로 stream을 송신
 			Message: req.GetMessage(),
 		})
-		if res != nil {
+		if res != nil { // 송신하는 과정에서 에러가 발생할 때
 			log.Fatalf("Error when response was sent to the client: %v", res)
 		}
 	}

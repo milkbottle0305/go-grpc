@@ -11,14 +11,14 @@ import (
 )
 
 func doUnary(c pb.MyServiceClient) int32 {
-	req := &pb.MyNumber{
+	req := &pb.MyNumber{ // 요청 생성
 		Value: 4,
 	}
-	res, err := c.MyFunction(context.Background(), req)
-	if err != nil {
+	res, err := c.MyFunction(context.Background(), req) // 요청 후 서버의 응답을 대입
+	if err != nil {                                     // 그 과정에서 에러 발생시
 		log.Fatalln("Error while Calling MyFunction RPC : ", err)
 	}
-	return res.GetValue()
+	return res.GetValue() // 결과값 반환
 }
 
 func main() {
