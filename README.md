@@ -49,3 +49,6 @@ $ go run $(directory name)/server/server.go
 ```
 $ go run $(directory name)/cleint/client.go
 ```
+
+## Who made?
+경희대학교 컴퓨터공학과 2019102200 유병우
